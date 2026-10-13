@@ -1,0 +1,22 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: devops--toolkit
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: helm
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: GitRepository
+        name: devops-toolkit
+  interval: 30s
+  storageNamespace: production
+  targetNamespace: production
+  values:
+    image:
+      tag: 2.9.9
+    ingress:
+      host: staging.devops-toolkit.$INGRESS_HOST.nip.io"
